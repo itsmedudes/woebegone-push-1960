@@ -1,12 +1,20 @@
 package com.app.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import com.app.model.Driver;
 
 @Repository
 public interface DriverRepository extends JpaRepository<Driver, Integer> {
+	
+	@Query("from Driver d where d.rating >= 4.5")
+	public List<Driver> getBestRatingDriverList();
+	
+	public Driver findByDriverId(Integer driverId);
+	
 	
 }
