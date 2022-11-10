@@ -3,7 +3,10 @@ package com.app.controller;
 import java.util.List;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 7ff1ce30174c7337139be7abbd0882be4ee5f81a
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +61,6 @@ public class DriverController {
 		return new ResponseEntity<Driver>(driver,HttpStatus.OK);
 	}
 	
->>>>>>> cef75c15bbf212ee7d00cdce66eb2ecb38ae910a
+
 	
 }
