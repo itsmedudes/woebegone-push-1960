@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
 @Data
 @ToString
 @AllArgsConstructor
@@ -28,14 +27,14 @@ public class AbstractUser {
 	@Column(unique = true)
 	private String username;
 	
-	@Size(min = 6, max = 20, message = "{PasswordRange}")
+	@Size(min = 6, max = 20, message = "{passwordRange}")
 	@NotNull(message = "{notNull}")
 	private String password;
 	
 
 	private String address;
 	
-	@Size(max = 10, message = "{MobileRange}")
+	@Size(max = 10, message = "{mobileRange}")
 	@Pattern(regexp = "[789]{1}[0-9]{9}", message = "{MobileRange}")
 	private String mobileNumber;
 	
