@@ -1,85 +1,69 @@
 package com.app.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.app.model.Customer;
 import com.app.repository.CustomerRepository;
 
-
-
-
-
-
 public class ICustomerServiceImpl implements ICustomerService {
 
 	@Autowired
 	private CustomerRepository cRepo;
 	
-	
-	
 	@Override
 	public Customer insertCustomer(Customer customer) {
 		
+		Customer insertcustomer = cRepo.save(customer);
 		
+		return insertcustomer;
 		
-		
-		
-		
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	public Customer updateCustomer(Customer customer) {
 		
+		Customer insertcustomer = cRepo.save(customer);
 		
+		return insertcustomer;
 		
-		
-		
-		
-		
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	public Customer deleteCustomer(int customerId) {
 		
+		Customer cust = null;
 		
-		
-		
-		
-		
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Customer> opt = cRepo.findById(customerId);
+		if(opt.isPresent()) {
+			
+		 cust= 	opt.get();
+			cRepo.delete(cust);
+		}
+		return cust;
 	}
 
 	@Override
 	public List<Customer> viewCustomers() {
 		
-		
-		
-		
-		
-		
-		
-		// TODO Auto-generated method stub
-		return null;
+		List<Customer> list = null;
+		list = cRepo.findAll();
+		return list;
 	}
 
 	@Override
 	public Customer viewCustomer(int customerId) {
 		
+		Customer cust = null;
 		
+	Optional<Customer> opt = cRepo.findById(customerId);
+		if(opt.isPresent()) {
+			cust = opt.get();
 		
-		
-		
-		
-		
-		// TODO Auto-generated method stub
-		return null;
+		}
+		return cust;
 	}
 
 	@Override
@@ -89,8 +73,6 @@ public class ICustomerServiceImpl implements ICustomerService {
 		
 		
 		
-		
-		// TODO Auto-generated method stub
 		return null;
 	}
 
