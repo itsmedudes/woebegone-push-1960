@@ -1,11 +1,11 @@
 package com.app.model;
 
-import javax.persistence.Column;
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,18 +15,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Driver {
+public class TripBooking {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer driverId;
-	
-	@Column(unique = true)
-	@NotNull
-	private String licenceNo;
-	private Float rating;
+	private Integer tripBookingId;
+	private Integer customerId;
 	
 	
-	
-//	@OneToOne(cascade = CascadeType.ALL)
-//	private Cab cab;
+	private Driver driver;
+	private String fromLocation;
+	private String toLocation;
+	private LocalDateTime fromDateTime;
+	private LocalDateTime toDateTime;
+	private boolean status;
+	private float distanceInKm;
+	private float bill;
 }
