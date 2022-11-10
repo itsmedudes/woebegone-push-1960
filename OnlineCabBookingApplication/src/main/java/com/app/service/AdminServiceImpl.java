@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.app.exception.AdminException;
 import com.app.model.Admin;
+import com.app.model.TripBooking;
 
 public class AdminServiceImpl implements AdminService{
 

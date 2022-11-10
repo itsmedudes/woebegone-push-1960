@@ -1,11 +1,11 @@
 package com.app.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import com.app.exception.AdminException;
 import com.app.model.Admin;
+import com.app.model.TripBooking;
 
 public interface AdminService {
 
