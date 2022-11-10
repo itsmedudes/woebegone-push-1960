@@ -2,29 +2,45 @@ package com.app.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.app.exception.AdminException;
+import com.app.exception.DriverException;
 import com.app.model.Admin;
 import com.app.model.TripBooking;
+import com.app.repository.AdminRepository;
 
+@Service
 public class AdminServiceImpl implements AdminService{
 
+	@Autowired
+	private AdminRepository adminRepository;
+	
 	@Override
 	public Admin insertAdmin(Admin admin) throws AdminException {
-		// TODO Auto-generated method stub
-		return null;
+		if(admin != null) return adminRepository.save(admin);
+		else throw new AdminException("Wrong Credentials !!!! Please Try Again");
 	}
 
 	@Override
 	public Admin updateAdmin(Admin admin) throws AdminException {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Admin> adminUpdate = adminRepository.findById(admin.getAdminId());
+		if (adminUpdate.isPresent()) {
+			return adminRepository.save(admin);
+		}
+		throw new AdminException("Unable to find admin with id :- "+admin.getAdminId()+"!!!! please try again");
 	}
 
 	@Override
 	public Admin deleteAdmin(Integer adminId) throws AdminException {
-		// TODO Auto-generated method stub
-		return null;
+		Admin existingAdmin = adminRepository.findById(adminId).orElseThrow(() -> new AdminException("Unable to find admin with id :- "+adminId+"!!!! please try again"));
+		
+		adminRepository.delete(existingAdmin);
+
+		return existingAdmin;
 	}
 
 	@Override
