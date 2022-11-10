@@ -6,13 +6,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-public class Admin {
+@NoArgsConstructor
+public class Admin extends AbstractUser{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer adminId;
+	
 
 }

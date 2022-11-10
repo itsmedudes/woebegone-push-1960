@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -8,16 +9,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.exception.AdminException;
-import com.app.exception.DriverException;
 import com.app.model.Admin;
+import com.app.model.Customer;
 import com.app.model.TripBooking;
 import com.app.repository.AdminRepository;
+import com.app.repository.CabRepository;
+import com.app.repository.CustomerRepository;
+import com.app.repository.DriverRepository;
+import com.app.repository.TripBookingRepository;
 
 @Service
 public class AdminServiceImpl implements AdminService{
 
 	@Autowired
 	private AdminRepository adminRepository;
+	
+	@Autowired
+	private CustomerRepository customerRepository;
+	
+	@Autowired 
+	private DriverRepository driverRepository;
+	
+	@Autowired
+	private CabRepository cabRepository;
+	
+	@Autowired
+	private TripBookingRepository tripRepository;
 	
 	@Override
 	public Admin insertAdmin(Admin admin) throws AdminException {
@@ -45,8 +62,12 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public List<TripBooking> getAllTrips(Integer customerId) throws AdminException {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Customer> opt = customerRepository.findById(customerId);
+		if(opt.isPresent()) {
+			List<TripBooking> trips = tripRepository.findAll();
+			return trips;
+		}
+		throw new AdminException("Unable to find customer with id :- "+customerId+"!!!! please try again");
 	}
 
 	@Override

@@ -1,9 +1,12 @@
 package com.app.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.exception.AdminException;
 import com.app.model.Admin;
-import com.app.model.Driver;
+import com.app.model.TripBooking;
 import com.app.service.AdminService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -38,11 +41,16 @@ public class AdminController {
 
 	}
 	
-	
 	@DeleteMapping("/deleteadmin/{adminId}")
 	public ResponseEntity<Admin> deleteMappingHandler(@PathVariable("adminId") Integer adminId) throws AdminException {
 		Admin deleteAdmin = adminService.deleteAdmin(adminId);
 		return new ResponseEntity<Admin>(deleteAdmin,HttpStatus.OK);
+	}
+	
+	@GetMapping("/getalltrips/{customerId}")
+	public ResponseEntity<List<TripBooking>>  getAllTripsHandler(@PathVariable("customerId") Integer customerId) throws AdminException{
+		List<TripBooking> trips= adminService.getAllTrips(customerId);
+		return new ResponseEntity<List<TripBooking>>(trips,HttpStatus.OK);
 	}
 	
 	
