@@ -2,11 +2,6 @@ package com.app.controller;
 
 import java.util.List;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 7ff1ce30174c7337139be7abbd0882be4ee5f81a
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
