@@ -1,5 +1,6 @@
 package com.app.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,31 @@ public class AdminController {
 		return new ResponseEntity<List<TripBooking>>(trips,HttpStatus.OK);
 	}
 	
+	@GetMapping("/trips/cabwise")
+	public ResponseEntity<List<TripBooking>> getTripsCabwiseHandler(){
+		List<TripBooking> cabwisetrips= adminService.getTripsCabwise();
+		return new ResponseEntity<List<TripBooking>>(cabwisetrips,HttpStatus.OK);
+	}
+	
+	@GetMapping("/customerwisetrips")
+	public List<TripBooking> getTripsCustomerwiseHandler(){
+		List<TripBooking> customerwiselist = adminService.getTripsCustomerwise();
+		return customerwiselist;
+	}
+	
+	@GetMapping("/datewisetrips")
+	public List<TripBooking> getTripsDatewiseHandler() throws AdminException{
+		List<TripBooking> datewiselist = adminService.getTripsDatewise();
+		return datewiselist;
+	}
+	
+	@GetMapping("trips/{customerId}/{fromDate}/{toDate}")
+	public List<TripBooking> getTripsDatewiseAndCustomerHandler(@PathVariable("customerId") Integer customerId, @PathVariable("fromDate") String fromDate,@PathVariable("toDate") String toDate) throws AdminException{
+		LocalDate fromDate1 = LocalDate.parse(fromDate);
+		LocalDate toDate1 = LocalDate.parse(toDate);
+		List<TripBooking> list = adminService.getAllTripsForDays(customerId, fromDate1, toDate1);
+		return list;
+
+	}
 	
 }

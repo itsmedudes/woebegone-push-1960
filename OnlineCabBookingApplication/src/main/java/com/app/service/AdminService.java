@@ -1,5 +1,6 @@
 package com.app.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,8 +24,6 @@ public interface AdminService {
 	
 	public List<TripBooking> getTripsDatewise() throws AdminException;
 	
-	public List<TripBooking> getAllTripsForDays(Integer customerId,LocalDateTime fromDate,LocalDateTime toDate) throws AdminException;
-	
-	
-	
+	public List<TripBooking> getAllTripsForDays(Integer customerId,LocalDate fromDate,LocalDate toDate) throws AdminException;
+
 }

@@ -72,27 +72,38 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public List<TripBooking> getTripsCabwise() {
-		// TODO Auto-generated method stub
-		return null;
+		List<TripBooking> triplist = tripRepository.findByCabWise();
+		if(triplist.size() > 0)
+			return triplist;
+		else
+			throw new AdminException("Not Found...!!!!Please try again");
 	}
 
 	@Override
 	public List<TripBooking> getTripsCustomerwise() {
-		// TODO Auto-generated method stub
-		return null;
+		List<TripBooking> customertriplist = tripRepository.findByCustomerWise();
+		if(customertriplist.size() > 0)
+			return customertriplist;
+		else
+			throw new AdminException("Not Found...!!!!Please try again");
 	}
 
 	@Override
 	public List<TripBooking> getTripsDatewise() throws AdminException {
-		// TODO Auto-generated method stub
-		return null;
+		List<TripBooking> datetriplist = tripRepository.findByDateWise();
+		if(datetriplist.size() > 0)
+			return datetriplist;
+		else
+			throw new AdminException("Not Found...!!!!Please try again");
 	}
 
 	@Override
-	public List<TripBooking> getAllTripsForDays(Integer customerId, LocalDateTime fromDate, LocalDateTime toDate)
-			throws AdminException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<TripBooking> getAllTripsForDays(Integer customerId, LocalDateTime fromDate, LocalDateTime toDate)throws AdminException {
+		List<TripBooking> daytriplist = tripRepository.findByCustomerIdAndTime(customerId, fromDate,toDate);
+		if(daytriplist.size() > 0)
+			return daytriplist;
+		else
+			throw new AdminException("No trips found for customer id "+customerId+" from date : "+fromDate+" to date : "+toDate);
 	}
 
 }
