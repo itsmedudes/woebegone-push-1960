@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.exception.DriverException;
+import com.app.model.Cab;
 import com.app.model.Driver;
+import com.app.repository.CabRepository;
 import com.app.repository.DriverRepository;
 
 @Service
@@ -15,11 +17,17 @@ public class DriverServiceImpl implements DriverService {
 
 	@Autowired
 	private DriverRepository driverRepository;
+	@Autowired
+	private CabRepository cabRespository;
 	
 	@Override
 	public Driver insertDriver(Driver driver) throws DriverException{
 		
-		if(driver!=null) return driverRepository.save(driver);
+		if(driver!=null) {
+			driver.setCab((Cab)cabRespository);
+			
+			return driverRepository.save(driver);
+		}
 		else throw new DriverException("We Cant Add This Driver Please Enter The Valid Information");
 	}
 
