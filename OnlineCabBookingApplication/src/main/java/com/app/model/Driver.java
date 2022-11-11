@@ -1,11 +1,15 @@
 package com.app.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+
+import com.app.repository.CabRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,11 +26,11 @@ public class Driver {
 	
 	@Column(unique = true)
 	@NotNull
-	private String licenceNo;
+	private String licenseNo;
 	private Float rating;
 	
 	
 	
-//	@OneToOne(cascade = CascadeType.ALL)
-//	private Cab cab;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Cab cab;
 }
