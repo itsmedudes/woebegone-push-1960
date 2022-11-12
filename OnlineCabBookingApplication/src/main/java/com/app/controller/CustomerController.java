@@ -42,8 +42,6 @@ public class CustomerController {
 	@DeleteMapping("cabbookingapp/customers/{customerId}")
 	public ResponseEntity<Customer> deleteCustomer(@PathVariable("customerId") Integer customerId){
 		
-		
-		
 			Customer deletedcustomer = null;
 			
 			deletedcustomer = icService.deleteCustomer(customerId);

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.app.exception.CustomerException;
 import com.app.model.Customer;
 import com.app.repository.CustomerRepository;
 
@@ -23,16 +24,20 @@ public class ICustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public Customer updateCustomer(Customer customer) {
+	public Customer updateCustomer(Customer customer)throws CustomerException {
 		
-		Customer insertcustomer = cRepo.save(customer);
+		Customer cust = null;
+		Optional<Customer> updatecustomer = cRepo.findById(customer.getCustomerId());
 		
-		return insertcustomer;
-		
+		if(updatecustomer.isPresent()) {
+			 cust = updatecustomer.get();
+			return cRepo.save(cust);
+		}
+		else throw new CustomerException("The customer does not exist ");
 	}
 
 	@Override
-	public Customer deleteCustomer(int customerId) {
+	public Customer deleteCustomer(int customerId) throws CustomerException {
 		
 		Customer cust = null;
 		
@@ -41,8 +46,10 @@ public class ICustomerServiceImpl implements ICustomerService {
 			
 		 cust= 	opt.get();
 			cRepo.delete(cust);
+			return cust;
 		}
-		return cust;
+		else throw new CustomerException("Customer with this id does not exist");
+		
 	}
 
 	@Override
