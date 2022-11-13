@@ -1,5 +1,6 @@
 package com.app.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import java.util.List;
@@ -104,6 +105,13 @@ public class AdminServiceImpl implements AdminService{
 			return daytriplist;
 		else
 			throw new AdminException("No trips found for customer id "+customerId+" from date : "+fromDate+" to date : "+toDate);
+	}
+
+	@Override
+	public List<TripBooking> getAllTripsForDays(Integer customerId, LocalDate fromDate, LocalDate toDate)
+			throws AdminException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
