@@ -4,8 +4,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.security.auth.login.LoginException;
+
+import com.app.dto.AdminDTO;
 import com.app.exception.AdminException;
+import com.app.exception.CustomerException;
+import com.app.exception.DriverException;
 import com.app.model.Admin;
+import com.app.model.Customer;
+import com.app.model.Driver;
 import com.app.model.TripBooking;
 
 public interface AdminService {
@@ -16,14 +23,17 @@ public interface AdminService {
 	
 	public Admin deleteAdmin(Integer adminId) throws AdminException;
 	
-	public List<TripBooking> getAllTrips(Integer customerId) throws AdminException;
+	public Admin updatePassword(AdminDTO dto, String username, String key) throws AdminException,LoginException;
 	
-	public List<TripBooking> getTripsCabwise();
+	public String logOutAdmin(String key) throws LoginException;
 	
-	public List<TripBooking> getTripsCustomerwise();
+	public List<CompletedTrips> getTripsByCustomerId(Integer customerId, String key);
 	
-	public List<TripBooking> getTripsDatewise() throws AdminException;
+	public List<CompletedTrips> getAllTrips(String key);
 	
-	public List<TripBooking> getAllTripsForDays(Integer customerId,LocalDate fromDate,LocalDate toDate) throws AdminException;
+	public List<Driver> getListOfDrivers(String key) throws DriverException, LoginException;
+	
+	public List<Customer> getListOfCustomers(String key) throws LoginException, CustomerException;
+	
 
 }
