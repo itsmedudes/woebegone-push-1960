@@ -11,6 +11,7 @@ import com.app.exception.AdminException;
 import com.app.exception.CustomerException;
 import com.app.exception.DriverException;
 import com.app.model.Admin;
+import com.app.model.CompletedTrips;
 import com.app.model.Customer;
 import com.app.model.Driver;
 import com.app.model.TripBooking;
@@ -27,9 +28,9 @@ public interface AdminService {
 	
 	public String logOutAdmin(String key) throws LoginException;
 	
-	public List<CompletedTrips> getTripsByCustomerId(Integer customerId, String key);
+	public List<CompletedTrips> getTripsByCustomerId(Integer customerId, String key) throws LoginException, CustomerException;
 	
-	public List<CompletedTrips> getAllTrips(String key);
+	public List<CompletedTrips> getAllTrips(String key) throws LoginException, CustomerException;
 	
 	public List<Driver> getListOfDrivers(String key) throws DriverException, LoginException;
 	

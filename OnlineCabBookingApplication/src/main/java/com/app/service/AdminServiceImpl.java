@@ -1,8 +1,5 @@
 package com.app.service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -19,12 +16,14 @@ import com.app.exception.UsernameNotFoundException;
 import com.app.model.AbstractUser;
 import com.app.model.Admin;
 import com.app.model.AdminSession;
+import com.app.model.CompletedTrips;
 import com.app.model.Customer;
 import com.app.model.Driver;
 import com.app.model.TripBooking;
 import com.app.repository.AdminRepository;
 import com.app.repository.AdminSessionRepository;
 import com.app.repository.CabRepository;
+import com.app.repository.CompletedTripsRepository;
 import com.app.repository.CustomerRepository;
 import com.app.repository.DriverRepository;
 import com.app.repository.TripBookingRepository;
@@ -46,6 +45,9 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Autowired
 	AdminSessionRepository adminSessionRepository;
+	
+	@Autowired
+	private CompletedTripsRepository completetripRepository;
 	
 	@Override
 	public Admin insertAdmin(Admin admin) throws AdminException {
@@ -102,24 +104,24 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<CompletedTrips> getTripsByCustomerId(Integer customerId, String key) {
+	public List<CompletedTrips> getTripsByCustomerId(Integer customerId, String key) throws LoginException, CustomerException {
 		Optional<AdminSession> otp = adminSessionRepository.findByUuid(key);
 		if (otp.isEmpty())
 			throw new LoginException("Admin is not logged in, Please login first!");
 
-		List<CompletedTrips> listOfTrips = completedTripsDao.findByCustomerId(customerId);
+		List<CompletedTrips> listOfTrips = completetripRepository.findByCustomerId(customerId);
 		if (listOfTrips.isEmpty())
 			throw new CustomerException("No trips Found by this Customer id " + customerId);
 		return listOfTrips;
 	}
 
 	@Override
-	public List<CompletedTrips> getAllTrips(String key) {
+	public List<CompletedTrips> getAllTrips(String key) throws LoginException, CustomerException {
 		Optional<AdminSession> otp = adminSessionRepository.findByUuid(key);
 		if (otp.isEmpty())
 			throw new LoginException("Admin is not logged in, Please login first!");
 
-		List<CompletedTrips> listOfTrips = completedTripsDao.findAll();
+		List<CompletedTrips> listOfTrips = completetripRepository.findAll();
 		if (listOfTrips.isEmpty())
 			throw new CustomerException("No trips Found Currently.");
 		return listOfTrips;
@@ -150,11 +152,5 @@ public class AdminServiceImpl implements AdminService{
 		return listOfCustomers;
 	}
 
-	@Override
-	public List<TripBooking> getAllTripsForDays(Integer customerId, LocalDate fromDate, LocalDate toDate)
-			throws AdminException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

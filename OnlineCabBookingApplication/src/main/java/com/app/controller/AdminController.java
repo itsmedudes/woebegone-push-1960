@@ -2,6 +2,8 @@ package com.app.controller;
 
 import java.util.List;
 
+import javax.security.auth.login.LoginException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dto.AdminDTO;
 import com.app.dto.Login;
 import com.app.exception.AdminException;
+import com.app.exception.CustomerException;
+import com.app.exception.DriverException;
 import com.app.model.Admin;
 import com.app.model.AdminSession;
+import com.app.model.CompletedTrips;
 import com.app.model.Customer;
 import com.app.model.Driver;
 import com.app.service.AdminService;
+import com.app.service.LoginService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
@@ -57,7 +63,7 @@ public class AdminController {
 	
 	@PatchMapping("/update/{username}")
 	public Admin updateAdminPassword(@RequestBody AdminDTO dto, @PathVariable("username") String username,
-			@RequestParam String key) {
+			@RequestParam String key) throws LoginException, AdminException {
 		return adminService.updatePassword(dto, username, key);
 	}
 	
@@ -75,18 +81,18 @@ public class AdminController {
 	}
 	
 	@GetMapping("/listoftripsbycustomer")
-	public List<CompletedTrips> listOfAllTripsByCustomer(@RequestParam Integer customerId, @RequestParam String key) {
+	public List<CompletedTrips> listOfAllTripsByCustomer(@RequestParam Integer customerId, @RequestParam String key) throws LoginException, CustomerException {
 		return adminService.getTripsByCustomerId(customerId, key);
 
 	}
 
 	@GetMapping("/listoftrips")
-	public List<CompletedTrips> listOfAllTrips(@RequestParam String key) {
+	public List<CompletedTrips> listOfAllTrips(@RequestParam String key) throws LoginException, CustomerException {
 		return adminService.getAllTrips(key);
 	}
 
 	@GetMapping("/listofcustomers")
-	public List<Customer> listOfCustomers(@RequestParam String key) {
+	public List<Customer> listOfCustomers(@RequestParam String key) throws LoginException, CustomerException {
 
 		List<Customer> listOfCustomers = adminService.getListOfCustomers(key);
 
@@ -94,7 +100,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/listofdrivers")
-	public List<Driver> listOfDrivers(@RequestParam String key) {
+	public List<Driver> listOfDrivers(@RequestParam String key) throws LoginException, DriverException {
 
 		List<Driver> listOfDrivers = adminService.getListOfDrivers(key);
 
