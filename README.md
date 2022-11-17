@@ -48,7 +48,7 @@ We have developed this REST API for an Online Cab Booking application. This API 
 ```
     server.port=8888
 
-    spring.datasource.url=jdbc:mysql://localhost:3306/cabdb;
+    spring.datasource.url=jdbc:mysql://localhost:3306/cardb;
     spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
     spring.datasource.username=root
     spring.datasource.password=root
