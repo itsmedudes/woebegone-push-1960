@@ -37,7 +37,7 @@ We have developed this REST API for an Online Cab Booking application. This API 
 * Dilip Kumar
 * Chetan
 * Snehal
-* Shubham
+* Shubham Dambale
 * Aman
 
 ## Installation & Run
